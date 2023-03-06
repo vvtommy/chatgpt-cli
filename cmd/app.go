@@ -94,9 +94,23 @@ func (a *appContext) run() {
 	a.runOnce()
 }
 
+type Exit int
+
+func handleExit() {
+	v := recover()
+	switch v.(type) {
+	case nil:
+		return
+	case Exit:
+		os.Exit(int(v.(Exit)))
+	default:
+		fmt.Printf("%+v", v)
+	}
+}
+
 func bye() {
 	fmt.Println("Bye!")
-	os.Exit(0)
+	panic(Exit(0))
 }
 
 var (
@@ -189,12 +203,12 @@ func (a *appContext) promptCompleter(prompt.Document) []prompt.Suggest {
 var ccExitKeyBind = prompt.KeyBind{
 	Key: prompt.ControlC,
 	Fn: func(b *prompt.Buffer) {
-		b.InsertText("Ctrl+C", false, false)
 		bye()
 	},
 }
 
 func (a *appContext) startPrompt() {
+	defer handleExit()
 	a.p = prompt.New(
 		a.promptExecutor,
 		a.promptCompleter,
@@ -214,7 +228,7 @@ func (a *appContext) runOnce() {
 			a.raise(err)
 			return
 		}
-		a.buffer = output
+		a.buffer = fmt.Sprintf("%s\n%s", a.buffer, output)
 	}
 	a.flush()
 }

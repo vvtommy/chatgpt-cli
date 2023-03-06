@@ -49,3 +49,5 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/c-bata/go-prompt => github.com/Xiami2012/go-prompt v0.2.7-0.20210617172556-566a3e3f3d2e
