@@ -27,7 +27,7 @@ func run(_ *cobra.Command, args []string) {
 func main() {
 	err := initConfig()
 	if err != nil {
-		_, _ = fmt.Fprintln(os.Stderr, fmt.Sprintf("error: %s\n", err.Error()))
+		_, _ = fmt.Fprintf(os.Stderr, "error: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}

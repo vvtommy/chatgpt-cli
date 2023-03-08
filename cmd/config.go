@@ -12,9 +12,10 @@ import (
 const EnvPrefix = "CHATGPT"
 const AppName = "chatgpt-cli"
 const CommandName = "chatgpt"
-const Version = "0.0.0"
+const Version = "%version%"
 const ConfigFileName = "config"
 const ConfigExt = "yaml"
+const BuildTime = "%build time%"
 
 const (
 	ConfigApiKey     = "apikey"

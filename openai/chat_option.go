@@ -97,11 +97,11 @@ func (o CreateChatCompletionOption) prepared() (CreateChatCompletionOption, erro
 	}
 
 	if !inRangeIfPresent(o.Temperature, TemperatureMin, TemperatureMax) {
-		return CreateChatCompletionOption{}, errors.Errorf("invalid temperature: %f", o.Temperature)
+		return CreateChatCompletionOption{}, errors.Errorf("invalid temperature: %f", *o.Temperature)
 	}
 
 	if !inRangeIfPresent(o.TopProbability, TopProbabilityMin, TopProbabilityMax) {
-		return CreateChatCompletionOption{}, errors.Errorf("invalid top_p: %f", o.TopProbability)
+		return CreateChatCompletionOption{}, errors.Errorf("invalid top_p: %f", *o.TopProbability)
 	}
 
 	if o.ChoicesNumber != nil && *o.ChoicesNumber < 1 {
@@ -112,11 +112,11 @@ func (o CreateChatCompletionOption) prepared() (CreateChatCompletionOption, erro
 	o.Stream = false
 
 	if !inRangeIfPresent(o.PresencePenalty, PresencePenaltyMin, PresencePenaltyMax) {
-		return CreateChatCompletionOption{}, errors.Errorf("invalid PresencePenalty: %f", o.PresencePenalty)
+		return CreateChatCompletionOption{}, errors.Errorf("invalid PresencePenalty: %f", *o.PresencePenalty)
 	}
 
 	if !inRangeIfPresent(o.FrequencyPenalty, FrequencyPenaltyMin, FrequencyPenaltyMax) {
-		return CreateChatCompletionOption{}, errors.Errorf("invalid FrequencyPenalty: %f", o.FrequencyPenalty)
+		return CreateChatCompletionOption{}, errors.Errorf("invalid FrequencyPenalty: %f", *o.FrequencyPenalty)
 	}
 
 	return o, nil

@@ -1,4 +1,4 @@
-module chatgit-cli
+module github.com/vvtommy/chatgpt-cli
 
 go 1.18
 

@@ -1,12 +1,12 @@
 package main
 
 import (
-	"bufio"
-	"chatgit-cli/internal/chat"
-	"chatgit-cli/openai"
 	"fmt"
 	"github.com/c-bata/go-prompt"
 	"github.com/spf13/viper"
+	"github.com/vvtommy/chatgpt-cli/internal/chat"
+	"github.com/vvtommy/chatgpt-cli/openai"
+	"io"
 	"os"
 	"regexp"
 	"strings"
@@ -29,7 +29,6 @@ type appContext struct {
 	apiKey     string
 	organizeID string
 	chat       *chat.Context
-	openai     *openai.Context
 
 	jsonOutput bool
 
@@ -73,17 +72,15 @@ func newApp() *appContext {
 
 func (a *appContext) readStdin() string {
 	var (
-		err    error
-		reader *bufio.Reader
-		input  string
+		err   error
+		input []byte
 	)
 
-	reader = bufio.NewReader(os.Stdin)
-	input, err = reader.ReadString('\n')
+	input, err = io.ReadAll(os.Stdin)
 	if err != nil {
 		return ""
 	}
-	return input
+	return string(input)
 }
 
 func (a *appContext) run() {
@@ -98,11 +95,11 @@ type Exit int
 
 func handleExit() {
 	v := recover()
-	switch v.(type) {
+	switch v := v.(type) {
 	case nil:
 		return
 	case Exit:
-		os.Exit(int(v.(Exit)))
+		os.Exit(int(v))
 	default:
 		fmt.Printf("%+v", v)
 	}
@@ -223,12 +220,7 @@ func (a *appContext) startPrompt() {
 func (a *appContext) runOnce() {
 	if a.pipe {
 		input := a.readStdin()
-		output, err := a.chat.Chat(input)
-		if err != nil {
-			a.raise(err)
-			return
-		}
-		a.buffer = fmt.Sprintf("%s\n%s", a.buffer, output)
+		a.buffer = fmt.Sprintf("%s\n%s", a.buffer, input)
 	}
 	a.flush()
 }

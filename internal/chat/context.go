@@ -1,7 +1,7 @@
 package chat
 
 import (
-	"chatgit-cli/openai"
+	"github.com/vvtommy/chatgpt-cli/openai"
 )
 
 type HistoryItem struct {

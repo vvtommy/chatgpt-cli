@@ -1,9 +1,9 @@
 package chat
 
 import (
-	"chatgit-cli/openai"
 	"fmt"
 	"github.com/segmentio/ksuid"
+	"github.com/vvtommy/chatgpt-cli/openai"
 )
 
 func newSessionID() string {

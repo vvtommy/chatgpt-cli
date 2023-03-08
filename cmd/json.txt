@@ -1,0 +1,20 @@
+{
+  "id": "chatcmpl-6r7oKYo7U8R6LTOTPqOmME0SvsXMo",
+  "object": "chat.completion",
+  "created": 1678119428,
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nYes, of course. How else may I assist you today?"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 49,
+    "completion_tokens": 15,
+    "total_tokens": 64
+  }
+}
